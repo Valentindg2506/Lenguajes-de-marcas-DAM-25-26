@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Valentin Antonio De Gennaro</title>
+        <meta charset="utf-8">
+        <!-- Etiquetas de posicionamiento -->
+        <meta name= "description" content= "Web de Valentin, estudiante de DAM">
+        <meta name= "viewport" content= "width=device-width, initial-scale=1.0">
+        <meta name= "keywords" content= "Programación, curso, diseño, IA, big data, ...">
+        <meta name= "author" content= "Valentin Antonio De Gennaro">
+        <link rel= "icon" href="imagen" type= "image/png">
+        <meta property= "og:title" content= "Valentin Antonio De Gennaro">
+        <meta property= "og:description" content= "Web de Valentin, estudiante de DAM">
+        <meta property= "og:image" content= "imagen">
+        <meta property= "og:url" content= "https://Valentindg2506.com">
+        <meta property= "og:type" content= "website">
+        <style>
+            h1,h2,h3{
+                color:red;
+                font-family:'Comic Sans MS', cursive, sans-serif;
+            }
+            body{
+                background:ghostwhite;
+                font-family:'Comic Sans MS', cursive, sans-serif;
+            }
+            header,main,footer{
+                width:960px; /* ESTABLECE LA ANCHURA DE LOS ELEMENTOS */
+                background:white; /* ESTABLECE EL FONDO DE LOS ELEMENTOS*/
+                margin:auto; /* CENTRALO EN LA PANTALLA*/
+                padding:20px; /* PON UN POCO DE MARGEN INTERIOR */
+            }
+            form{
+                width:600px;
+                background:ghostwhite;
+                text-align:center;
+                padding:20px;
+            }
+            nav ul{
+                list-style-type:none; /* ANULA LOS ESTILOS DE LISTA */
+                margin:0px; /* ANULA EL MARGEN EXTERIOR POR DEFECTO */
+                padding:0px; /* ANULA EL MARGEN INTERIOR POR DEFECTO */
+                display: flex; /* ACTIVA FLEX DE IZQUIERDA A DERECHA */  /*FLEXBOX.JOCARSA.COM*/
+                gap: 60px; /* DISTANCIA ENTRE LOS ELEMENTOS FLEXBOX O GRID */
+                justify-content: center; /* CENTRAR LOS ELEMENTOS DEL MENU */
+                align-content: space-around; 
+            }
+            nav ul li a{
+                text-decoration: none; /* ANULA LOS ESTILOS DE SUBRAYADO*/
+                color: inherit; /* LE PONE EL COLOR QUE DEBERIA TENER*/
+                color: red; /* FUERZO EL COLOR A BLANCO */
+                background: ghostwhite; /* EL FONDO ES DE UN COLOR SOLIDO */
+                padding: 5px;  /* LE PONGO UN MARGEN INTERIOR */
+                font-size:12px; /* LE PONGO TAMAÑO DE LETRA */
+                text-transform: uppercase; /* TEXTO EN MAYUSCULA */
+                display:block;  /* PERMITO A LOS ELEMENTOS QUE SEAN BLOQUES */
+                width: 75px; /* SU ANCHURA ES DE 60PX */
+                text-align: center; /* ALINEO EL TEXTO AL CENTRO */
+            }
+            #inicio img{
+                width: 100%;        /* NO QUIERO QUE LA IMAGEN SE SALGA */
+            }
+            .bloque{
+                display: flex;     /* EL BLOQUE DE TEXTO E IMAGEN QUIERO QUE SEA FLEX */
+                gap:20px  /* DISTANCIA ENTRE LOS ELEMENTOS */
+            }
+            .bloque img{
+                flex:1;  /* OCUPA UNA UNIDAD DE FLEX */
+                width: 50%; /* OCUPA EL 50% DE LA ANCHURA */
+                height: 50%; /* OCUPA EL 50% DE LA ALTURA*/
+            }
+            .bloque p{
+                flex: 1;  /* OCUPA UNA UNIDAD DE FLEX */
+                font-size: 20px; /* EDITO EL TAMAÑO DEL TEXTO */
+                text-align: justify; /* EDITO LA ALINEACION DEL TEXTO */
+            }
+            #desarrollo .bloque{
+                flex-direction: row-reverse;  /* INVERTIMOS EL ORDEN DE UN ELEMENTO */
+            }
+            #contenedorportafolio{
+                display: grid; /* ESTE ELEMENTO ES UNA REJILLA */
+                grid-template-columns: auto auto auto;  /* Y TIENE TRES COLUMNAS */
+                gap: 20%; /* SEPARACION ENTRE LOS ELEMENTOS */
+            }
+            #contenedorportafolio img{
+                width: 100%; /* QUIERO QUE LA IMAGEN NO SE DESBORDE */
+            }
+            iframe{
+                flex: 1;  /* TIENE UNA UNIDAD FLEX */
+            }
+            form{
+                display: flex; /* QUIERO QUE EL FORMULARIO SEA FLEX */
+                flex-direction: column; /* Y QUIERO QUE SEA UNA COLUMNA */
+                flex: 1; /* TIENE UNA UNIDAD FLEX */
+                gap: 10px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <header>
+            <!--Esto es la cabecera de la pagina -->
+            <h1>Valentin Antonio De Gennaro</h1>
+            <h2>Alumno, Desarrollo de Aplicaciones Multiplataforma</h2>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#sobremi">Sobre mi</a></li>
+                    <li><a href="#portafolio">Portafolio</a></li>
+                    <li><a href="#esrudios">Estudios</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <!-- ESTO ES EL CONTENIDO PRINCIPAL-->
+             <section id="inicio">
+                <h3>Inicio</h3>
+                <p> Soy un alumno del Desarrollo del Aplicaciones Multiplataforma.</p>
+                <img src="https://i.pinimg.com/474x/ff/ea/3c/ffea3c75cab666941ebc1477c600d229.jpg" alt="Valentin Antonio De Gennaro">
+             </section>
+             <section id="sobremi">
+                <h3>Sobre mi</h3>
+                <p>Me caracterizo por ser una persona dinámica, organizada y expeditiva. Altamente comprometido en trabajar en empresas que me impulsen a mi desarrollo personal y profesional.</p>
+             </section>
+             <section id="portafolio">
+                <h3>Portafolio</h3>
+                <div class="contenedorportafolio">
+                    <article>
+                        <h4> Contenido </h4>
+                        <p> Descripcion del elemento</p>
+                        <img src="https://dinahosting.com/blog/upload/2018/06/lenguajes-de-programaci%C3%B3n-1-1.jpg" alt="Valentin Antonio De Gennaro">
+                    </article>
+                    <article>
+                        <h4> Contenido </h4>
+                        <p> Descripcion del elemento</p>
+                        <img src="https://dinahosting.com/blog/upload/2018/06/lenguajes-de-programaci%C3%B3n-1-1.jpg" alt="Valentin Antonio De Gennaro">
+                    </article>
+                    <article>
+                        <h4> Contenido </h4>
+                        <p> Descripcion del elemento</p>
+                        <img src="https://dinahosting.com/blog/upload/2018/06/lenguajes-de-programaci%C3%B3n-1-1.jpg" alt="Valentin Antonio De Gennaro">
+                    </article>
+                    <article>
+                        <h4> Contenido </h4>
+                        <p> Descripcion del elemento</p>
+                        <img src="https://dinahosting.com/blog/upload/2018/06/lenguajes-de-programaci%C3%B3n-1-1.jpg" alt="Valentin Antonio De Gennaro">
+                    </article>
+                    
+                </div>
+             </section>
+             <section id="estudios">
+                <h3>Estudios</h3>
+                <div class="bloque">
+                    <img src="https://i.pinimg.com/474x/ff/ea/3c/ffea3c75cab666941ebc1477c600d229.jpg" alt="Valentin Antonio De Gennaro">
+                    <p>Tengo un titulo de Bachillerato en ciencias sociales y humanidades. Un certificado de Community Manager impartido por la UBA, y actualmente me encuetro cursando una formacion profesional de desarrollo de aplicaciones multiplataforma en el CEACFP oficial de Valencia</p>
+                </div>
+             </section>
+             <section id="contacto">
+                <h3>Contacto</h3>
+                <div class="bloque">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6157.117969980971!2d-0.40770012749233375!3d39.50187188640228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2ses!4v1759912146683!5m2!1ses-419!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <form>
+                        <label for="nombre">Introduce tu nombre</label>
+                        <input type="text" id="nombre">
+                        <label for="email">Introduce tu email</label>
+                        <input type="email" id="email">
+                        <label for="mensaje">Introduce tu mensaje</label>
+                        <textarea id="mensaje"></textarea>
+                        <input type="submit">
+                    </form>
+                </div>
+            </section>  
+        </main>
+        <footer>
+            <!--ESTO ES EL PIE DE PAGINA-->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Github-desktop-logo-symbol.svg/2048px-Github-desktop-logo-symbol.svg.png" alt="Logo de tu red social" width="25" height="25">
+            <a href="https://github.com/Valentindg2506">Github</a>
+        </footer>
+        </div>
+    </body>
+
+</html>
