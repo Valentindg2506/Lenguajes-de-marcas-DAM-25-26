@@ -1,2 +1,13 @@
-# Lenguajes de marcas DAM-25-26
-En este repositorio estan las notas y ejercicios en general que realizo en clases
+# Lenguajes de Marcas
+
+Repositorio con apuntes y ejercicios prácticos relacionados con los lenguajes de marcas estudiados en clase. Incluye ejemplos, prácticas en HTML, XML, y otros formatos.
+
+## Contenido
+- Apuntes teóricos.
+- Ejercicios resueltos.
+- Archivos de práctica.
+
+## Uso
+Este repositorio es para consulta y apoyo en el estudio de los lenguajes de marcas durante el curso.
+
+
