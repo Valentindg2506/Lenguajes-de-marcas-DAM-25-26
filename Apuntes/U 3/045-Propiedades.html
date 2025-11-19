@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            section{
+                display: grid;
+                grid-template-columns: repeat(7,50px);
+            }
+            div{
+                border: 1px solid grey;
+                width: 40px;
+                height: 40px;
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            class Gato{
+                // Propiedades en constructor
+                constructor(){
+                    this.color = undefined;
+                    this.edad = 0;
+                    this.raza = undefined;
+                }
+            }   
+            var gato1 = new Gato();
+            var gato2 = new Gato();
+            console.log(gato1)
+        </script>
+    </body>
+</html>
