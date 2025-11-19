@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JavaScript</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <header><h1>El blog de Valentín</h1></header>
+        <main></main>
+        <footer>(c) 2025 Valentín de Gennaro</footer>
+        <script>
+            const articulos = [
+                "Primer articulo",
+                "Segundo articulo",
+                "Tercer articulo"
+            ];
+            const contenedor = document.querySelector("main");
+            for(let i = 0;i<articulos.length;i++){ // RECORRO LOS ARTICULOS //
+                contenedor.innerHTML += "<h3>"+articulos[i]+"</h3>";
+            }
+        </script>
+    </body>
+</html>

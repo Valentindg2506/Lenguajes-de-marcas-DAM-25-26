@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            section{
+                display: grid;
+                grid-template-columns: repeat(7,50px);
+            }
+            div{
+                border: 1px solid grey;
+                width: 40px;
+                height: 40px;
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            class Gato{
+                // Propiedades en constructor
+                constructor(){
+                    this.color = undefined;
+                    this.edad = 0;
+                    this.raza = undefined;
+                }
+                maulla(){
+                    return "Miau";
+                }
+                setColor(nuevocolor){this.color = nuevocolor;}
+                getColor(){return this.color;}
+            }   
+            var gato1 = new Gato();
+            var gato2 = new Gato();
+            gato1.setColor("Naranja");
+            document.write(gato1.getColor());
+            console.log(gato1.maulla());
+        </script>
+    </body>
+</html>
