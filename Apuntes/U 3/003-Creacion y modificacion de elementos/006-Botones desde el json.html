@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <nav></nav>
+        <script>
+            // VES Y BUSCA
+            fetch("botones.json")
+            .then(function(respuesta){
+                return respuesta.json(); // La rta viene en json
+            })
+            .then(function(datos){
+                let contenedor = document.querySelector("nav")
+                datos.forEach(function(texto_boton){
+                    let boton = document.createElement("button")
+                    boton.textContent = texto_boton;
+                    contenedor.appendChild(boton);
+                })
+            })
+        </script>
+    </body>
+</html>

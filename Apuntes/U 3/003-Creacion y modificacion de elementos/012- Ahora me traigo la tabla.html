@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+   <head>
+       <style>
+            html,body{
+                height: 100%;
+                padding: 0px;
+                margin: 0px;
+                display: flex;
+                width: 100%;
+            }
+            nav{
+                background: orangered;
+                flex: 1;
+                color: white;
+                padding: 20px;
+                text-transform: uppercase;
+            }
+            main{
+                flex: 4;
+                background: Cornsilk;
+                padding: 20px;
+            }
+       </style>
+   </head>
+   <body>
+        <nav>
+            Valentin Panel
+        </nav>
+        <style>
+            nav{
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+            nav button{
+                border: none;
+                background: white;
+                color: orangered;
+                padding: 20px;
+                text-transform: uppercase;
+            }
+        </style>
+        <script>
+            // VES Y BUSCA
+            fetch("botones.json")
+            .then(function(respuesta){
+                return respuesta.json(); // La rta viene en json
+            })
+            .then(function(datos){
+                let contenedor = document.querySelector("nav")
+                datos.forEach(function(texto_boton){
+                    let boton = document.createElement("button")
+                    boton.textContent = texto_boton;
+                    contenedor.appendChild(boton);
+                })
+            })
+        </script>
+       <main>
+            Tabla de clientes
+       </main>
+        <style>
+           table{border:3px solid orangered;border-collapse:collapse;}
+           table tr:first-child{background:orangered;color:white;}
+           table tr td{padding:10px;border-right: 1px solid orangered;}
+       </style>
+        <script>
+           // En primer lugar cargamos datos de un json
+           fetch("tabla.json")
+           .then(function(respuesta){
+               return respuesta.json(); // La resp viene en JSON
+           })
+           .then(function(datos){
+               // Selecciono el contenedor de la tabla
+               let contenedor = document.querySelector("main");
+               // Primero creo una tabla en memoria
+               let tabla = document.createElement("table");
+               // Al cuerpo le añado la tabla
+               contenedor.appendChild(tabla); 
+               console.log(datos)
+               // Para cada una de las lineas del json:
+               datos.forEach(function(linea){
+               		// Primero creo una fila - table row
+                   let fila = document.createElement("tr");
+                   // Ahora creo tantas celdas como sea necesario
+                   linea.forEach(function(celda){
+                       	// Creo una celda vacia HTML
+                   		let data = document.createElement("td");
+                       	// Le pongo el texto a la celda
+                       	data.textContent = celda
+                       	// A la fila, le añado la celda
+                       	fila.appendChild(data);
+                   })
+                   // A la tabla le añado esta fila
+                   tabla.appendChild(fila)
+               })
+           })
+       </script>
+   </body>
+</html>
+

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+   <head>
+       <style>
+            html,body{
+                height: 100%;
+                padding: 0px;
+                margin: 0px;
+                display: flex;
+                width: 100%;
+            }
+            nav{
+                background: orangered;
+                flex: 1;
+                color: white;
+                padding: 20px;
+                text-transform: uppercase;
+            }
+            main{
+                flex: 4;
+                background: Cornsilk;
+                padding: 20px;
+            }
+       </style>
+   </head>
+   <body>
+        <nav>
+            Valentin Panel
+        </nav>
+        <style>
+            nav{
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+            nav button{
+                border: none;
+                background: white;
+                color: orangered;
+                padding: 20px;
+                text-transform: uppercase;
+            }
+        </style>
+        <script>
+            // VES Y BUSCA
+            fetch("botones.json")
+            .then(function(respuesta){
+                return respuesta.json(); // La rta viene en json
+            })
+            .then(function(datos){
+                let contenedor = document.querySelector("nav")
+                datos.forEach(function(texto_boton){
+                    let boton = document.createElement("button")
+                    boton.textContent = texto_boton;
+                    contenedor.appendChild(boton);
+                })
+            })
+        </script>
+       <main>
+            2
+       </main>
+   </body>
+</html>
+

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <nav></nav>
+        <script>
+            // VES Y BUSCA
+            fetch("botones.json")
+            .then(function(respuesta){
+                return respuesta.json(); // La rta viene en json
+            })
+            .then(function(datos){
+                console.log(datos)
+            })
+        </script>
+    </body>
+</html>
