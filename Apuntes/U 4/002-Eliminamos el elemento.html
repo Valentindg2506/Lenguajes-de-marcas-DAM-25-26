@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div id="contenedor"></div>
+        <script>
+            let elemento = document.createElement("p");
+            elemento.textContent = "Contenido desde JS";
+            let contenedor = document.querySelector("#contenedor");
+            contenedor.appendChild(elemento);
+
+            elemento.remove(); // ELIMINA EL ELEMENTO DE LA PANTALLA
+        </script>
+    </body>
+</html>
