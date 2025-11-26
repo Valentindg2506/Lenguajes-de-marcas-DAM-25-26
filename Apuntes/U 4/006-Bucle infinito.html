@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <table></table>
+        <script>
+
+            let temporizador = setTimeout("bucle()",1000); // CREO UN TEMPORIZADOR
+
+            function bucle(){
+                console.log("Chau");
+                clearTimeout(temporizador) // ELIMINO EL TEMPORIZADOR PARA NO ACUMULAR
+                temporizador = setTimeout("bucle()",1000); // LLAMO AL BUCLE DE NUEVO
+            }
+        </script>
+    </body>
+</html>

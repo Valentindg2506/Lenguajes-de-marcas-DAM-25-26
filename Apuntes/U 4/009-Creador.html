@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .cuadrado{width:50px;height:50px;background:red;position:absolute;}
+            .circulo{width:50px;height:50px;background:red;position:absolute;border-radius:50px;}
+        </style>
+    </head>
+    <body>
+        <button id="pulsa_cuadrado">Pulsa para crear un cuadrado</button>
+        <button id="pulsa_circulo">Pulsa para crear un circulo</button>
+        <script>
+            let boton_cuadrado = document.querySelector("#pulsa_cuadrado")
+            let boton_circulo = document.querySelector("#pulsa_circulo")
+
+            boton_cuadrado.onclick = function(){
+                let elemento = document.createElement("div")                        // CREO UN ELEMENTO NUEVO
+                elemento.classList.add("cuadrado");                                 // LE PONGO LA CLASE CUADRADO
+                elemento.style.left = Math.random()*500+"px"                        // POS ALEATORIA X
+                elemento.style.top = Math.random()*500+"px"                         // POS ALEATORIA Y
+                document.querySelector("body").appendChild(elemento)                // AÑADO EL ELEMENTO AL BODY
+                let rojo = Math.round(Math.random()*255);                           // CREO UN ROJO ALEATORIO
+                let verde = Math.round(Math.random()*255);                          // CREO UN VERDE ALEATORIO
+                let azul = Math.round(Math.random()*255);                           // CREO UN AZUL ALEATORIO
+                elemento.style.background = "rgb("+rojo+","+verde+","+azul+")";	    // Y LE PONGO EL COLOR
+            }
+            boton_circulo.onclick = function(){
+                let elemento = document.createElement("div")                        // CREO UN ELEMENTO NUEVO
+                elemento.classList.add("circulo");                                 // LE PONGO LA CLASE CUADRADO
+                elemento.style.left = Math.random()*500+"px"                        // POS ALEATORIA X
+                elemento.style.top = Math.random()*500+"px"                         // POS ALEATORIA Y
+                document.querySelector("body").appendChild(elemento)                // AÑADO EL ELEMENTO AL BODY
+                let rojo = Math.round(Math.random()*255);                           // CREO UN ROJO ALEATORIO
+                let verde = Math.round(Math.random()*255);                          // CREO UN VERDE ALEATORIO
+                let azul = Math.round(Math.random()*255);                           // CREO UN AZUL ALEATORIO
+                elemento.style.background = "rgb("+rojo+","+verde+","+azul+")";	    // Y LE PONGO EL COLOR
+            }
+        </script>
+    </body>
+</html>
