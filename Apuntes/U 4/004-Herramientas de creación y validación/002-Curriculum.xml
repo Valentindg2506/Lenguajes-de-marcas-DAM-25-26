@@ -5,7 +5,9 @@
 	<perfil>Soy una persona dinámica, organizada y comprometida con mi desarrollo personal y profesional.</perfil>
 	
 	<contacto>
-		<telefono>+34 641025995</telefono>
+		<telefonos>
+			<telefono>+34 641025995</telefono>
+		</telefonos>
 		<email>valentindegennaro@gmail.com</email>
 		<direccion>Valencia-46008</direccion>
 		<usuario>Valentindg2506</usuario>

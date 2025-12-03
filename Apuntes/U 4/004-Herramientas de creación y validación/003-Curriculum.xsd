@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <xs:element name="persona">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="nombre" type="xs:string"/>
+        <xs:element name="apellidos" type="xs:string"/>
+        <xs:element name="perfil" type="xs:string" minOccurs="0"/>
+        
+        <xs:element name="contacto">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="telefonos">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="telefono" type="xs:string" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="email" type="xs:string"/>
+              <xs:element name="direccion" type="xs:string" minOccurs="0"/>
+              <xs:element name="usuario" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="experiencias">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="experiencia" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="empresa" type="xs:string"/>
+                    <xs:element name="puesto" type="xs:string"/>
+                    <xs:element name="periodo" type="xs:string"/>
+                    <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="formaciones">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="formacion" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="titulo" type="xs:string"/>
+                    <xs:element name="centro" type="xs:string"/>
+                    <xs:element name="estado" type="xs:string" minOccurs="0"/>
+                    <xs:element name="periodo" type="xs:string" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="habilidades">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="habilidad" type="xs:string" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
