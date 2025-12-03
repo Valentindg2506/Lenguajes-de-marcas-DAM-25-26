@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persona>
+	<nombre>Valentín Antonio</nombre>
+	<apellidos>de Gennaro</apellidos>
+	<perfil>Soy una persona dinámica, organizada y comprometida con mi desarrollo personal y profesional.</perfil>
+	
+	<contacto>
+		<telefono>+34 641025995</telefono>
+		<email>valentindegennaro@gmail.com</email>
+		<direccion>Valencia-46008</direccion>
+		<usuario>Valentindg2506</usuario>
+	</contacto>
+
+	<experiencias>
+		<experiencia>
+			<empresa>Moovecars</empresa>
+			<puesto>Conductor</puesto>
+			<periodo>06/2025-08/2025</periodo>
+			<descripcion>Conductor VTC</descripcion>
+		</experiencia>
+		<experiencia>
+			<empresa>4Play SRL</empresa>
+			<puesto>Administrativo</puesto>
+			<periodo>02/2024-03/2025</periodo>
+			<descripcion>Manejo de excel, plataforma propia y gestión de ventas.</descripcion>
+		</experiencia>
+		<experiencia>
+			<empresa>Burguer King</empresa>
+			<puesto>Repartidor</puesto>
+			<periodo>11/2023-11/2023</periodo>
+			<descripcion>Venta y delivery de alimentos.</descripcion>
+		</experiencia>
+		<experiencia>
+			<empresa>SuValencia</empresa>
+			<puesto>Administrativo</puesto>
+			<periodo>11/2022-06/2023</periodo>
+			<descripcion>Atención al Cliente, manejo de Office y gestión de redes sociales.</descripcion>
+		</experiencia>
+	</experiencias>
+
+	<formaciones>
+		<formacion>
+			<titulo>Desarrollo de Aplicaciones Multiplataforma</titulo>
+			<centro>CEAC FP Valencia</centro>
+			<estado>Cursando actualmente</estado>
+		</formacion>
+		<formacion>
+			<titulo>Bachiller con orientación en Ciencias Sociales y Humanidades</titulo>
+			<centro>IADES</centro>
+			<periodo>2017 - 2022</periodo>
+		</formacion>
+	</formaciones>
+
+	<habilidades>
+		<habilidad>Manejo de paquete office</habilidad>
+		<habilidad>Habilidades Digitales</habilidad>
+		<habilidad>Licencia de conducir</habilidad>
+		<habilidad>Trabajo en equipo</habilidad>
+		<habilidad>Capacidad de adaptación</habilidad>
+	</habilidades>
+</persona>
