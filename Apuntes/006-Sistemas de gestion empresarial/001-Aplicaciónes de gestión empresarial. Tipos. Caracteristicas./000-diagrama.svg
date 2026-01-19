@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="736" height="297" viewBox="0 0 736 297">
+
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 12px; fill: #111827; }
+      .shape-rect { fill: #ffffff; stroke: #9ca3af; stroke-width: 1; }
+      .shape-entity { fill: #ffffff; stroke: #111827; stroke-width: 2; }
+      .shape-circle { fill: #ffffff; stroke: #9ca3af; stroke-width: 1; }
+      .shape-pill { fill: #ffffff; stroke: #9ca3af; stroke-width: 1; }
+      .shape-db { fill: #ffffff; stroke: #9ca3af; stroke-width: 1; }
+      .conn { stroke: #111827; stroke-width: 2; fill: none; }
+    </style>
+    <marker id="arrow-end" markerWidth="10" markerHeight="7" refX="10" refY="3.5"
+            orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#111827"/>
+    </marker>
+    <marker id="arrow-start" markerWidth="10" markerHeight="7" refX="0" refY="3.5"
+            orient="auto" markerUnits="strokeWidth">
+      <polygon points="10 0, 0 3.5, 10 7" fill="#111827"/>
+    </marker>
+  </defs>
+        
+<rect class="shape-rect" x="40" y="120" width="120" height="40" rx="4" ry="4" />
+<text x="100" y="144" text-anchor="middle">Admision (form)</text>
+<rect class="shape-rect" x="200" y="122" width="120" height="40" rx="4" ry="4" />
+<text x="260" y="146" text-anchor="middle">Validación</text>
+<rect class="shape-rect" x="366" y="124" width="120" height="40" rx="4" ry="4" />
+<text x="426" y="148" text-anchor="middle">Matricula</text>
+<rect class="shape-rect" x="576" y="40" width="120" height="40" rx="4" ry="4" />
+<text x="636" y="64" text-anchor="middle">LMS</text>
+<rect class="shape-rect" x="576" y="123" width="120" height="40" rx="4" ry="4" />
+<text x="636" y="147" text-anchor="middle">SIS</text>
+<rect class="shape-rect" x="576" y="217" width="120" height="40" rx="4" ry="4" />
+<text x="636" y="241" text-anchor="middle">Conta/Fact</text>
+<text x="44" y="103">CRM  -  Software de gestión de la relacion con el cliente</text>
+<path class="conn" d="M 160 140.75 L 200 141.25" marker-end="url(#arrow-end)" />
+<path class="conn" d="M 320 142.72289156626505 L 366 143.27710843373495" marker-end="url(#arrow-end)" />
+<path class="conn" d="M 476 124 L 586 80" marker-end="url(#arrow-end)" />
+<path class="conn" d="M 486 143.71428571428572 L 576 143.28571428571428" marker-end="url(#arrow-end)" />
+<path class="conn" d="M 471.1612903225806 164 L 590.8387096774194 217" marker-end="url(#arrow-end)" />
+</svg>
