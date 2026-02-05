@@ -1,0 +1,530 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bart vs Bob Patiño</title>
+    <style>
+        body{
+            background: radial-gradient(circle at top, #6EC6FF 0%, #2D3A4A 60%, #111 100%);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            margin:0;
+            font-family: "Trebuchet MS", "Comic Sans MS", Arial, sans-serif;
+            color:#fff;
+        }
+        canvas{
+            border:4px solid #FFD90F;      /* Amarillo Simpson */
+            box-shadow:0 0 25px rgba(0,0,0,0.7);
+            background:#87CEEB;           /* Azul cielo */
+            border-radius:10px;
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+
+    <script>
+        // ================================
+        // Clases
+        // ================================
+        class Jugador{
+            constructor(x, y){
+                this.x = x;
+                this.y = y;
+                this.w = 32;
+                this.h = 32;
+                this.velBase = 5;
+                this.vel = this.velBase;
+                this.dirX = 1;
+                this.dirY = 0;
+                this.vidas = 3;
+                this.invencible = false;
+                this.tiempoInvencible = 0; // ms
+            }
+
+            mover(teclas, ancho, alto){
+                let vx = 0;
+                let vy = 0;
+
+                const up    = teclas["w"] || teclas["ArrowUp"];
+                const down  = teclas["s"] || teclas["ArrowDown"];
+                const left  = teclas["a"] || teclas["ArrowLeft"];
+                const right = teclas["d"] || teclas["ArrowRight"];
+
+                if (up)    vy -= 1;
+                if (down)  vy += 1;
+                if (left)  vx -= 1;
+                if (right) vx += 1;
+
+                if (vx !== 0 || vy !== 0){
+                    const len = Math.hypot(vx, vy);
+                    vx = (vx / len) * this.vel;
+                    vy = (vy / len) * this.vel;
+                    this.x += vx;
+                    this.y += vy;
+                    this.dirX = vx;
+                    this.dirY = vy;
+                }
+
+                // Limites de pantalla (dejamos HUD arriba)
+                if (this.x < 0) this.x = 0;
+                if (this.y < 50) this.y = 50;
+                if (this.x > ancho - this.w) this.x = ancho - this.w;
+                if (this.y > alto - this.h) this.y = alto - this.h;
+            }
+
+            actualizarInvencible(dt){
+                if (this.invencible){
+                    this.tiempoInvencible -= dt;
+                    if (this.tiempoInvencible <= 0){
+                        this.invencible = false;
+                    }
+                }
+            }
+
+            dibujar(ctx, sprite){
+                if (this.invencible){
+                    const t = performance.now();
+                    if (Math.floor(t / 100) % 2 === 0){
+                        ctx.globalAlpha = 0.4;
+                    }
+                }
+                ctx.drawImage(sprite, this.x, this.y);
+                ctx.globalAlpha = 1;
+            }
+
+            herir(){
+                if (this.invencible) return;
+                this.vidas--;
+                this.invencible = true;
+                this.tiempoInvencible = 1000; // 1 segundo
+            }
+        }
+
+        class Npc{
+            constructor(ancho, alto){
+                this.w = 32;
+                this.h = 32;
+                // Aparecen por debajo del HUD
+                this.x = Math.random() * (ancho - this.w);
+                this.y = 50 + Math.random() * (alto - 50 - this.h);
+                // Velocidad base + multiplicador por nivel (global "nivel")
+                const base = 0.7 + Math.random() * 0.6;  // 0.7–1.3
+                const multNivel = 1 + (nivel - 1) * 0.18; // cada nivel +18% aprox
+                this.vel = base * multNivel;
+            }
+
+            actualizar(jugador){
+                const dx = jugador.x - this.x;
+                const dy = jugador.y - this.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist > 0){
+                    this.x += (dx / dist) * this.vel;
+                    this.y += (dy / dist) * this.vel;
+                }
+            }
+
+            dibujar(ctx, sprite){
+                ctx.drawImage(sprite, this.x, this.y);
+            }
+        }
+
+        class Bala{
+            constructor(x, y, dirX, dirY){
+                this.w = 8;
+                this.h = 8;
+                this.x = x;
+                this.y = y;
+                const velocidad = 9;
+                const modulo = Math.hypot(dirX, dirY) || 1;
+                this.vx = (dirX / modulo) * velocidad;
+                this.vy = (dirY / modulo) * velocidad;
+            }
+
+            actualizar(){
+                this.x += this.vx;
+                this.y += this.vy;
+            }
+
+            dibujar(ctx){
+                ctx.fillStyle = "#FFD90F"; // Amarillo Simpson
+                ctx.fillRect(this.x, this.y, this.w, this.h);
+            }
+        }
+
+        class PowerUp{
+            constructor(tipo, ancho, alto){
+                this.tipo = tipo; // "vida", "velocidad", "disparo"
+                this.w = 24;
+                this.h = 24;
+                this.x = Math.random() * (ancho - this.w);
+                this.y = 50 + Math.random() * (alto - 50 - this.h);
+            }
+
+            dibujar(ctx){
+                ctx.save();
+                ctx.translate(this.x + this.w/2, this.y + this.h/2);
+                ctx.beginPath();
+                let color, texto;
+                if (this.tipo === "vida"){
+                    color = "#FF3B3B";
+                    texto = "+";
+                }else if (this.tipo === "velocidad"){
+                    color = "#00E676";
+                    texto = "S";
+                }else{
+                    color = "#FF9100";
+                    texto = "F";
+                }
+                ctx.fillStyle = color;
+                ctx.arc(0, 0, this.w/2, 0, Math.PI*2);
+                ctx.fill();
+                ctx.fillStyle = "#000";
+                ctx.font = "bold 14px Arial";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(texto, 0, 1);
+                ctx.restore();
+            }
+        }
+
+        // ================================
+        // Configuración inicial
+        // ================================
+        const lienzo   = document.querySelector("canvas");
+        const contexto = lienzo.getContext("2d");
+
+        const ANCHO = 960;
+        const ALTO  = 540;
+        lienzo.width  = ANCHO;
+        lienzo.height = ALTO;
+
+        const NPCS_BASE = 5;
+
+        let nivel = 1;
+        let jugador   = new Jugador(ANCHO/2 - 16, ALTO/2 - 16);
+        let npcs      = [];
+        let balas     = [];
+        let powerUps  = [];
+
+        let teclas = {};
+        let puntuacion = 0;
+        let juegoTerminado = false;
+
+        // Disparo y buffs
+        const disparoCooldownBase = 300; // ms
+        let disparoCooldown = disparoCooldownBase;
+        let ultimoDisparo = 0;
+        let buffVelocidadRestante = 0;   // ms
+        let buffDisparoRestante   = 0;   // ms
+
+        // Spawner de powerups
+        let tiempoParaPowerUp = 5000; // ms hasta el próximo
+        const MAX_POWERUPS = 3;
+
+        // Tiempo
+        let ultimoTiempo = performance.now();
+        let tiempoActual = performance.now();
+
+        // Sprites
+        const spriteBart = new Image();
+        spriteBart.src = "bart.png";
+
+        const spriteBob  = new Image();
+        spriteBob.src = "bob.png";
+
+        function crearNpcs(){
+            npcs = [];
+            const cantidad = NPCS_BASE + (nivel - 1) * 3;
+            for(let i = 0; i < cantidad; i++){
+                npcs.push(new Npc(ANCHO, ALTO));
+            }
+        }
+        crearNpcs();
+
+        function crearPowerUp(){
+            const tipos = ["vida", "velocidad", "disparo"];
+            const tipo = tipos[Math.floor(Math.random() * tipos.length)];
+            powerUps.push(new PowerUp(tipo, ANCHO, ALTO));
+        }
+
+        // ================================
+        // Utilidades
+        // ================================
+        function colision(a, b){
+            return (
+                a.x < b.x + b.w &&
+                a.x + a.w > b.x &&
+                a.y < b.y + b.h &&
+                a.y + a.h > b.y
+            );
+        }
+
+        function aplicarPowerUp(pu){
+            if (pu.tipo === "vida"){
+                // Máximo 5 vidas
+                if (jugador.vidas < 5){
+                    jugador.vidas++;
+                }
+            }else if (pu.tipo === "velocidad"){
+                jugador.vel = jugador.velBase * 1.8;
+                buffVelocidadRestante = 5000; // 5 segundos
+            }else if (pu.tipo === "disparo"){
+                disparoCooldown = disparoCooldownBase * 0.5;
+                buffDisparoRestante = 6000; // 6 segundos
+            }
+        }
+
+        function actualizar(timestamp){
+            if (juegoTerminado) return;
+
+            const dt = timestamp - ultimoTiempo;
+            ultimoTiempo = timestamp;
+            tiempoActual = timestamp;
+
+            jugador.mover(teclas, ANCHO, ALTO);
+            jugador.actualizarInvencible(dt);
+
+            // Actualizar NPCs
+            npcs.forEach(npc => npc.actualizar(jugador));
+
+            // Actualizar balas
+            balas.forEach(bala => bala.actualizar());
+
+            // Eliminar balas fuera
+            balas = balas.filter(bala =>
+                bala.x + bala.w > 0 &&
+                bala.x < ANCHO &&
+                bala.y + bala.h > 50 && // por debajo del HUD
+                bala.y < ALTO
+            );
+
+            // Spawner de power-ups
+            tiempoParaPowerUp -= dt;
+            if (tiempoParaPowerUp <= 0 && powerUps.length < MAX_POWERUPS){
+                crearPowerUp();
+                tiempoParaPowerUp = 5000 + Math.random() * 5000; // 5-10s
+            }
+
+            // Duración de buffs
+            if (buffVelocidadRestante > 0){
+                buffVelocidadRestante -= dt;
+                if (buffVelocidadRestante <= 0){
+                    jugador.vel = jugador.velBase;
+                }
+            }
+            if (buffDisparoRestante > 0){
+                buffDisparoRestante -= dt;
+                if (buffDisparoRestante <= 0){
+                    disparoCooldown = disparoCooldownBase;
+                }
+            }
+
+            // Colisión bala - NPC
+            for (let i = npcs.length - 1; i >= 0; i--){
+                const npc = npcs[i];
+                for (let j = balas.length - 1; j >= 0; j--){
+                    const bala = balas[j];
+                    if (colision(bala, npc)){
+                        npcs.splice(i, 1);
+                        balas.splice(j, 1);
+                        puntuacion += 10 * nivel;
+                        break;
+                    }
+                }
+            }
+
+            // Colisión NPC - Jugador
+            for (let i = 0; i < npcs.length; i++){
+                const npc = npcs[i];
+                if (colision(jugador, npc)){
+                    jugador.herir();
+                    if (jugador.vidas <= 0){
+                        juegoTerminado = true;
+                        setTimeout(() => {
+                            alert("GAME OVER\nPuntuación: " + puntuacion + "\nNivel alcanzado: " + nivel);
+                            reiniciarJuego();
+                        }, 10);
+                    }
+                    break;
+                }
+            }
+
+            // Colisión Jugador - PowerUp
+            for (let i = powerUps.length - 1; i >= 0; i--){
+                const pu = powerUps[i];
+                if (colision(jugador, pu)){
+                    aplicarPowerUp(pu);
+                    powerUps.splice(i, 1);
+                }
+            }
+
+            // Pasar de nivel
+            if (!juegoTerminado && npcs.length === 0){
+                juegoTerminado = true;
+                setTimeout(() => {
+                    alert("¡Nivel " + nivel + " completado!\nPuntuación: " + puntuacion);
+                    nivel++;
+                    crearNpcs();
+                    juegoTerminado = false;
+                }, 10);
+            }
+        }
+
+        // ================================
+        // Dibujo
+        // ================================
+        function dibujarFondo(){
+            // Cielo
+            contexto.fillStyle = "#87CEEB";
+            contexto.fillRect(0, 50, ANCHO, ALTO - 50);
+
+            // Césped
+            contexto.fillStyle = "#4CAF50";
+            contexto.fillRect(0, ALTO - 120, ANCHO, 120);
+
+            // Carretera
+            contexto.fillStyle = "#555";
+            contexto.fillRect(0, ALTO - 180, ANCHO, 40);
+
+            contexto.strokeStyle = "#FFF";
+            contexto.lineWidth = 3;
+            contexto.setLineDash([15, 10]);
+            contexto.beginPath();
+            contexto.moveTo(0, ALTO - 160);
+            contexto.lineTo(ANCHO, ALTO - 160);
+            contexto.stroke();
+            contexto.setLineDash([]);
+
+            // Nubes
+            contexto.fillStyle = "#FFFFFF";
+            function nube(cx, cy, escala){
+                contexto.beginPath();
+                contexto.arc(cx,         cy,         20*escala, 0, Math.PI*2);
+                contexto.arc(cx + 20*escala, cy + 5*escala, 18*escala, 0, Math.PI*2);
+                contexto.arc(cx - 20*escala, cy + 5*escala, 18*escala, 0, Math.PI*2);
+                contexto.arc(cx,         cy + 10*escala, 22*escala, 0, Math.PI*2);
+                contexto.fill();
+            }
+            nube(150, 90, 1.2);
+            nube(400, 70, 1.0);
+            nube(720, 95, 1.4);
+        }
+
+        function dibujarHUD(){
+            // Barra superior
+            contexto.fillStyle = "#FFD90F";
+            contexto.fillRect(0, 0, ANCHO, 50);
+
+            contexto.fillStyle = "#1C3F94";
+            contexto.font = "bold 20px 'Trebuchet MS', Arial";
+            contexto.fillText("BART vs BOB PATIÑO", 20, 30);
+
+            contexto.fillStyle = "#000";
+            contexto.font = "bold 16px 'Trebuchet MS', Arial";
+            contexto.fillText("Puntos: " + puntuacion, ANCHO - 320, 22);
+            contexto.fillText("Vidas: " + jugador.vidas, ANCHO - 320, 42);
+            contexto.fillText("Nivel: " + nivel, ANCHO - 180, 32);
+        }
+
+        function dibujar(){
+            contexto.clearRect(0, 0, ANCHO, ALTO);
+            dibujarFondo();
+
+            // Power-Ups
+            powerUps.forEach(pu => pu.dibujar(contexto));
+
+            // Balas
+            balas.forEach(bala => bala.dibujar(contexto));
+
+            // NPCs
+            npcs.forEach(npc => npc.dibujar(contexto, spriteBob));
+
+            // Jugador
+            jugador.dibujar(contexto, spriteBart);
+
+            // HUD
+            dibujarHUD();
+
+            // Instrucciones
+            contexto.fillStyle = "rgba(0,0,0,0.5)";
+            contexto.fillRect(20, ALTO - 90, 360, 70);
+            contexto.fillStyle = "#FFD90F";
+            contexto.font = "bold 14px 'Trebuchet MS', Arial";
+            contexto.fillText("Controles:", 30, ALTO - 70);
+            contexto.fillStyle = "#FFF";
+            contexto.font = "13px 'Trebuchet MS', Arial";
+            contexto.fillText("Mover: WASD o Flechas", 30, ALTO - 50);
+            contexto.fillText("Disparo: ESPACIO | Coge los círculos de colores", 30, ALTO - 32);
+        }
+
+        function bucle(timestamp){
+            actualizar(timestamp);
+            dibujar();
+            requestAnimationFrame(bucle);
+        }
+
+        function reiniciarJuego(){
+            nivel = 1;
+            puntuacion = 0;
+            jugador = new Jugador(ANCHO/2 - 16, ALTO/2 - 16);
+            balas = [];
+            powerUps = [];
+            buffVelocidadRestante = 0;
+            buffDisparoRestante = 0;
+            disparoCooldown = disparoCooldownBase;
+            tiempoParaPowerUp = 5000;
+            crearNpcs();
+            juegoTerminado = false;
+        }
+
+        // ================================
+        // Entrada (teclado)
+        // ================================
+        document.addEventListener("keydown", (e) => {
+            teclas[e.key] = true;
+            if (e.key === " "){
+                disparar();
+            }
+        });
+
+        document.addEventListener("keyup", (e) => {
+            teclas[e.key] = false;
+        });
+
+        function disparar(){
+            // cooldown de disparo dependiente de buffs
+            if (tiempoActual - ultimoDisparo < disparoCooldown) return;
+
+            const origenX = jugador.x + jugador.w / 2 - 4;
+            const origenY = jugador.y + jugador.h / 2 - 4;
+            let dirX = jugador.dirX;
+            let dirY = jugador.dirY;
+            if (dirX === 0 && dirY === 0){
+                dirX = 1; dirY = 0;
+            }
+            balas.push(new Bala(origenX, origenY, dirX, dirY));
+            ultimoDisparo = tiempoActual;
+        }
+
+        // ================================
+        // Inicio cuando cargan sprites
+        // ================================
+        let cargadas = 0;
+        function iniciarSiListo(){
+            cargadas++;
+            if (cargadas === 2){
+                ultimoTiempo = performance.now();
+                tiempoActual = ultimoTiempo;
+                requestAnimationFrame(bucle);
+            }
+        }
+
+        spriteBart.onload = iniciarSiListo;
+        spriteBob.onload  = iniciarSiListo;
+    </script>
+</body>
+</html>
+``

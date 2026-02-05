@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+			canvas{border:1px solid grey;}
+		</style>
+	</head>
+	<body>
+		<canvas></canvas>
+		<script>
+			// Declaración de clases
+			class Jugador{
+				constructor(){
+					this.x = 100;
+					this.y = 100;
+				}
+			}
+			// Condiciones globales de inicio
+			var lienzo = document.querySelector("canvas")
+			var contexto = lienzo.getContext("2d")
+			lienzo.width = 512
+			lienzo.height = 512
+			var temporizador;
+			var jugador = new Jugador();
+			var fps = 1000/30
+			inicio()
+
+			// Función de inicio
+			function inicio(){
+				console.log("Yo soy el inicio")
+				temporizador = setTimeout("bucle()",fps)
+			}
+			// Función de bucle
+			function bucle(){
+				// Primero borramos el canvas anterior
+				contexto.clearRect(0,0,512,512)
+				// Dibujamos al jugador
+				contexto.beginPath()
+				contexto.arc(jugador.x,jugador.y,10,0,Math.PI*2)
+				contexto.fill()
+				// Reiniciamos el bucle
+				clearTimeout(temporizador)
+				temporizador = setTimeout("bucle()",fps)
+			}
+			// Manejadores de eventos
+			document.onkeydown = function(e){	// Cuando pulso una tecla
+				console.log(e)
+				if(e.key == "w"){					// Arriba
+					jugador.y -= 10
+				}else if(e.key == "s"){		// Abajo
+					jugador.y += 10
+				}else if(e.key == "a"){		// Izquierda
+					jugador.x -= 10
+				}else if(e.key == "d"){		// Derecha
+					jugador.x += 10
+				}
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+	<head>
+	</head>
+	<body>
+		<canvas></canvas>
+		<script>
+			// Declaración de clases
+			// Condiciones globales de inicio
+			var temporizador;
+			inicio()
+
+			// Función de inicio
+			function inicio(){
+				console.log("Yo soy el inicio")
+			t	emporizador = setTimeout("bucle()",1000)
+			}
+			// Función de bucle
+			function bucle(){
+				clearTimeout(temporizador)
+				temporizador = setTimeout("bucle()",1000)
+			}
+			// Manejadores de eventos
+		</script>
+	</body>
+</html>

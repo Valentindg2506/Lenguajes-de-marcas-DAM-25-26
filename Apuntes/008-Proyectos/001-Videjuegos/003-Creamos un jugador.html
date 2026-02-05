@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+	<head>
+	</head>
+	<body>
+		<canvas></canvas>
+		<script>
+			// Declaración de clases
+			class Jugador{
+				constructor(){
+				this.x = 100;
+				this.y = 100;
+			}
+			}
+			// Condiciones globales de inicio
+			var temporizador;
+			var jugador = new Jugador();
+			inicio()
+
+			// Función de inicio
+			function inicio(){
+				console.log("Yo soy el inicio")
+				temporizador = setTimeout("bucle()",1000)
+			}
+			// Función de bucle
+			function bucle(){
+				clearTimeout(temporizador)
+				temporizador = setTimeout("bucle()",1000)
+			}
+			// Manejadores de eventos
+		</script>
+	</body>
+</html>
